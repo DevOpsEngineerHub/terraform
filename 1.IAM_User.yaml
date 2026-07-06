@@ -1,0 +1,5 @@
+Resources:
+  IAMUser:
+    Type: AWS::IAM::User
+    Properties:
+      UserName: demo-user
