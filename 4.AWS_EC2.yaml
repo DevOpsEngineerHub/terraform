@@ -2,4 +2,4 @@ Resources:
   EC2Instance:
     Type: AWS::EC2::Instance
     Properties:
-      ImageId: ami-0f58b397bc5c1f2e8     # Amazon Linux 2023 (Example - update for your region)
+      ImageId: ami-0912f71e06545ad88
