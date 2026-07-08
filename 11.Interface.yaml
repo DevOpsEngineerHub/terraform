@@ -1,0 +1,67 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+Description: Details about my Stack
+
+Metadata:
+  AWS::CloudFormation::Interface:
+
+    ParameterGroups:
+
+      - Label:
+          default: EC2 Configuration
+
+        Parameters:
+          - NameOfMyService
+          - KeyName
+
+    ParameterLabels:
+
+      NameOfMyService:
+        default: EC2 Instance Name
+
+      KeyName:
+        default: EC2 Key Pair
+
+Parameters:
+
+  NameOfMyService:
+    Description: Enter the EC2 Name
+    Type: String
+
+  KeyName:
+    Description: Select an EC2 Key Pair
+    Type: AWS::EC2::KeyPair::KeyName
+
+Resources:
+
+  MyEC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-0912f71e06545ad88
+      InstanceType: t2.micro
+
+      KeyName: !Ref KeyName
+
+      Tags:
+        - Key: Name
+          Value: !Ref NameOfMyService
+
+      SecurityGroups:
+        - !Ref MySecurityGroup
+
+  MySecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Enable SSH and HTTP
+
+      SecurityGroupIngress:
+
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
